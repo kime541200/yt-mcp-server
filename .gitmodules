@@ -1,0 +1,9 @@
+[submodule "modules/yt-dlp-downloader-skill"]
+	path = modules/yt-dlp-downloader-skill
+	url = https://github.com/MapleShaw/yt-dlp-downloader-skill.git
+[submodule "modules/youtube-skills"]
+	path = modules/youtube-skills
+	url = https://github.com/ZeroPointRepo/youtube-skills.git
+[submodule "modules/policy-mcp-server"]
+	path = modules/policy-mcp-server
+	url = http://kimnas:3333/kim/policy-mcp-server.git

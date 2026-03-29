@@ -1,0 +1,1 @@
+開發過程請遵守 [RULES.md](./RULES.md) 的規範

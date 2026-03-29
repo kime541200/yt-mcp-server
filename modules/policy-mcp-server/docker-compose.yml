@@ -1,0 +1,42 @@
+services:
+  # Reverse proxy — 改寫 Host header 讓外部 IP 可連入
+  nginx:
+    image: nginx:alpine
+    container_name: policy-mcp-nginx
+    ports:
+      - "8002:8002"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    restart: unless-stopped
+
+  policy-mcp-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: policy-mcp-server:latest
+    container_name: policy-mcp-server
+    networks:
+      default:
+        aliases:
+          - policy
+    env_file:
+      - .env
+    environment:
+      - POLICY_WORKSPACE_PATH=/app/workspace
+      - ENTITY_LISTS_PATH=/app/entity_lists
+      - MILVUS_URI=${MILVUS_URI:-http://192.168.1.103:19530}
+      - EMBEDDING_BASE_URL=${EMBEDDING_BASE_URL:-}
+      - EMBEDDING_API_KEY=${EMBEDDING_API_KEY:-no-key}
+      - EMBEDDING_MODEL=${EMBEDDING_MODEL:-}
+      - MCP_HOST=0.0.0.0
+      - MCP_PORT=8002
+    volumes:
+      - ./workspace:/app/workspace
+      - ./entity_lists:/app/entity_lists
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8002/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s

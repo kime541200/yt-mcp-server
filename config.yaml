@@ -1,0 +1,19 @@
+# ============================================================
+# YouTube MCP Server — 系統配置文件
+# 此文件管理可頻繁調整的非機敏參數
+# 機敏資訊（API Keys）請放在 .env 文件中
+# ============================================================
+
+youtube:
+  # 每次搜尋最大回傳結果數
+  default_max_results: 10
+  # 預設字幕語言（採 BCP-47 格式）
+  default_transcript_language: "zh-TW"
+  # API 呼叫逾時秒數
+  request_timeout_seconds: 30
+
+server:
+  name: "yt-mcp-server"
+  version: "0.1.0"
+  # 搜尋結果字串的最大截斷長度（防止 LLM context 爆炸）
+  max_response_chars: 8000

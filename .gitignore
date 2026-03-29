@@ -14,3 +14,7 @@ wheels/
 .idea
 .vscode
 
+# Secrets — never commit real .env, only .env.example
+.env
+
+

@@ -101,3 +101,21 @@ Depending on how you run the server, configure your MCP client as follows:
 Point your client to the FastMCP Streamable HTTP endpoint:
 `http://localhost:8088/mcp`
 
+## Using an Agent Skill for Better Results
+
+This MCP server is designed to work well on its own, but you can get better results if the Agent you are using also has the companion skill:
+
+- `agent-skill/youtube-mcp-server-guide/SKILL.md`
+
+The MCP server and the Agent Skill are intentionally decoupled:
+
+- The MCP server provides the YouTube tools.
+- The Agent Skill teaches the Agent how to use those tools well, including when to choose search vs exact lookup, how to handle transcripts, and how to verify the server is actually reachable before use.
+
+If your Agent supports custom skills, provide that skill alongside this MCP server so it can:
+
+- check the server with `mcporter` before making tool calls
+- choose the right YouTube tool faster
+- handle common failure cases more gracefully
+
+In practice, this means the same MCP server can be used by different Agents, and each Agent can become more effective simply by loading the skill that matches this server.

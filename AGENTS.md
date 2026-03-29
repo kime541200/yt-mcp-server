@@ -36,7 +36,7 @@ The application can be run locally or via Docker. The configuration is loaded fr
 # Make sure .venv is activated
 source .venv/bin/activate
 
-# Run in HTTP mode (default: http://localhost:8088/sse)
+# Run in HTTP mode (default: http://localhost:8088/mcp)
 python -m yt_mcp_server
 
 # Run in stdio mode (for direct MCP client use)

@@ -76,7 +76,7 @@ docker compose logs -f
 docker compose down
 ```
 
-The server will be available at: `http://localhost:8088/sse`
+The server will be available at: `http://localhost:8088/mcp`
 
 ## Connecting an MCP Client
 
@@ -98,5 +98,6 @@ Depending on how you run the server, configure your MCP client as follows:
 ```
 
 **For HTTP/SSE mode (Docker/Local HTTP):**
-Point your client to the SSE endpoint:
-`http://localhost:8088/sse`
+Point your client to the FastMCP Streamable HTTP endpoint:
+`http://localhost:8088/mcp`
+

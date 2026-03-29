@@ -36,6 +36,8 @@ If `mcporter` is not installed, install it with `npm install -g mcporter` and th
 
 If the server is missing from the list or the call fails, treat that as an environment problem first. Tell the user the MCP server is not started or not reachable rather than pretending the tool call failed semantically.
 
+If you need a recovery path for a missing or failed server, read [references/server-recovery.md](references/server-recovery.md).
+
 ## First decision
 
 Classify the request before calling anything:
@@ -122,6 +124,7 @@ Expect a few common failure modes:
 - If search returns the wrong resource, refine the query or switch to exact ID lookup.
 - If transcript retrieval fails because transcripts are disabled or unavailable, say that clearly and do not fabricate subtitles.
 - If the server reports quota exhaustion, remember that the client pool already rotates API keys automatically. Retry only with a more specific query, or report that all keys are exhausted if the error persists.
+- If the MCP server is not running or cannot be reached, switch to the recovery reference instead of continuing to call tools blindly.
 
 ## Good defaults
 

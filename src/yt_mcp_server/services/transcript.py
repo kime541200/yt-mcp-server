@@ -28,18 +28,17 @@ class TranscriptService:
             video_id, language, transcript (list of {text, start, duration})
         """
         lang = language or config.youtube.default_transcript_language
+        api = YouTubeTranscriptApi()
 
         try:
-            transcript = YouTubeTranscriptApi.get_transcript(
+            transcript = api.fetch(
                 video_id, languages=[lang, "en"]
             )
         except NoTranscriptFound:
             # Fall back to any available transcript
             try:
-                transcript_list = YouTubeTranscriptApi.list_transcripts(video_id)
-                transcript = transcript_list.find_transcript(
-                    [lang, "en"]
-                ).fetch()
+                transcript_list = api.list(video_id)
+                transcript = next(iter(transcript_list)).fetch()
             except Exception as exc:
                 raise RuntimeError(
                     f"No transcript available for video '{video_id}': {exc}"
@@ -54,10 +53,10 @@ class TranscriptService:
             "language": lang,
             "transcript": [
                 {
-                    "text": seg.get("text", ""),
-                    "start": seg.get("start", 0.0),
-                    "duration": seg.get("duration", 0.0),
-                    "timestamp": _format_timestamp(seg.get("start", 0.0)),
+                    "text": getattr(seg, "text", "") if hasattr(seg, "text") else seg.get("text", ""),
+                    "start": getattr(seg, "start", 0.0) if hasattr(seg, "start") else seg.get("start", 0.0),
+                    "duration": getattr(seg, "duration", 0.0) if hasattr(seg, "duration") else seg.get("duration", 0.0),
+                    "timestamp": _format_timestamp(getattr(seg, "start", 0.0) if hasattr(seg, "start") else seg.get("start", 0.0)),
                 }
                 for seg in transcript
             ],

@@ -44,6 +44,9 @@ class YouTubeConfig:
     default_max_results: int = 10
     default_transcript_language: str = "zh-TW"
     request_timeout_seconds: int = 30
+    transcript_merge_max_gap_seconds: float = 1.5
+    transcript_merge_target_chars: int = 180
+    transcript_merge_max_duration_seconds: float = 30.0
 
 
 @dataclass
@@ -96,6 +99,15 @@ def load_config() -> AppConfig:
                 yt_raw.get("default_transcript_language", "zh-TW")
             ),
             request_timeout_seconds=int(yt_raw.get("request_timeout_seconds", 30)),
+            transcript_merge_max_gap_seconds=float(
+                yt_raw.get("transcript_merge_max_gap_seconds", 1.5)
+            ),
+            transcript_merge_target_chars=int(
+                yt_raw.get("transcript_merge_target_chars", 180)
+            ),
+            transcript_merge_max_duration_seconds=float(
+                yt_raw.get("transcript_merge_max_duration_seconds", 30.0)
+            ),
         ),
         server=ServerConfig(
             name=str(srv_raw.get("name", "yt-mcp-server")),

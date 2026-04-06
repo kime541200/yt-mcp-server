@@ -211,6 +211,6 @@ def transcripts_get_transcript(
         str | None,
         Field(description="BCP-47 language code (e.g. 'zh-TW', 'en'). Defaults to config value."),
     ] = None,
-) -> str:
+) -> dict[str, object]:
     result = _transcript_svc.get_transcript(video_id, language)
-    return _serialize(result)
+    return result
